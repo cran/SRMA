@@ -13,15 +13,17 @@ get.delta.sigma.qn(qc.out, ref.info)
 }
 \value{
   a list containing:
-  \item{alldelta.qn}{An array with 4 dimentions containing log transformed quantile normalized intensity ratios for each
+  \item{alldelta.qn}{An array with 4 dimensions containing log transformed quantile normalized intensity ratios for each
     base. The first dimension corresponds to the base positions. The second
     dimension corresponds to the three pairs of RM/AM allele, where RM
     stands for reference match and AM stands for alternative match. The third dimension corresponds to samples, and the fourth dimentions corresponds to sense and antisense strands.}
   \item{allsigma.qn}{An array with 4 dimentions containing average of log transformed quantile normalized intensities for each
     RM/AM pairs. The structure of the arrays are the same as element delta.}
-  \item{allpairs.qn}{An array with 3 dimentions containing the nucleotide base of RM/AM pairs for all bases. The first dimension corresponds to the base positions. The second
+  \item{allpairs.qn}{An array with 3 dimensions containing the nucleotide base of RM/AM pairs for all bases. The first dimension corresponds to the base positions. The second
     dimension corresponds to the three pairs of RM/AM allele, and the third dimension corresponds to sense and antisense strands.}
-  \item{ref.info}{A dataframe with 3 columns containing amplicon names(Fragment), position (FragPos) and reference allele (Ref) for all the bases.}
+  \item{ref.info}{A dataframe with 5 columns containing amplicon
+    names(Fragment), position (FragPos), reference allele (Ref),
+    chromosome number, and chromosome coordinate for all the bases.}
   \item{gc}{The gc content of amplicon/exon corresponding to the amplicons in ref.info. }
   \item{exonlength}{The length of amplicon/exon corresponding to the amplicons in ref.info.}
 }

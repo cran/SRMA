@@ -58,9 +58,9 @@ Proc Natl Acad Sci U S A. 2011 Apr 19;108(16):6549-54.
 \examples{
 data('reorg.dat')
 \dontrun{sd.adj.dat<-single.chip.posterior.prob(reorg.dat)}
-\dontshow{data('sd.adj.dat')}
+data('sd.adj.dat')
 srma.out<-call.genotype(reorg.dat,sd.adj.dat )
 Results<-post.process(srma.out)
 Results
-str(Results)                                
+writeVCF(Results)                               
 }

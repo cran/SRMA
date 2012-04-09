@@ -1,0 +1,241 @@
+load("/Users/wenyiwang/Documents/MitoReseq/SRMARpackage/SRMA/data/ref.info.rda")
+ref.info[1:5,]
+load("/Users/wenyiwang/Documents/MitoReseq/SRMARpackage/SRMA/data/reorg.dat.rda")
+names(reorg.dat)
+reorg.dat$ref.info[1:5,]
+ref.info=reorg.dat$ref.info
+save(ref.info,file="ref.info.rda")
+load("/Users/wenyiwang/Documents/MitoReseq/SRMARpackage/SRMA/data/ref.info.rda")
+ref.info[1:5,]
+load("/Users/wenyiwang/Documents/MitoReseq/SRMARpackage/SRMA/data/sd.adj.dat.rda")
+ls()
+str(sd.adj.dat)
+str(reorg.dat)
+source("../R/call.genotype.R")
+srma.out<-call.genotype(reorg.dat,sd.adj.dat)
+library(SRMA)
+srma.out<-call.genotype(reorg.dat,sd.adj.dat)
+sd.adj.dat <- single.chip.posterior.prob(reorg.dat)
+str(reorg.dat)
+library(SRMA)
+sd.adj.dat <- single.chip.posterior.prob(reorg.dat)
+str(ref.info)
+str(reorg.dat)
+load("/Volumes/workspace/NZhang/WWang101210/SRMA/data/reorg.dat.rda")
+str(reorg.dat)
+head(ref.info)
+data(reorg.dat)
+str(reorg.dat$ref.info)
+library(SRMA)
+data(reorg.at)
+data(reorg.dat)
+str(reorg.dat)
+data(ref.info)
+str(ref.info)
+posi <- read.delim(file="../../5umChipExons_g37_20120326.gff",sep="\t",header=F,stringsAsFactors=F)
+head(ref.info)
+new.ref.info<-cbind( ref.info, posi[match(ref.info$Fragment, posi[,9]), c(1, 4)])#
+colnames(new.ref.info)[4:5]<-c('Chromosome','Position')#
+rownames(new.ref.info)<-NULL#
+new.ref.info$Position<-new.ref.info$Position+new.ref.info$FragPos#
+ref.info<-new.ref.info
+str(ref.info)
+head(ref.info)
+getwd()
+save(ref.info,file="ref.info.rda")
+reorg.dat$ref.info=ref.info
+save(reorg.dat,file="reorg.dat.rda")
+sd.adj.dat <- single.chip.posterior.prob(reorg.dat)
+save(sd.adj.dat,file="sd.adj.dat.rda")
+srma.out <- call.genotype(reorg.dat,sd.adj.dat)
+source("../R/post.process.R")
+Results <- post.process(srma.out)
+write.vcf(Results)
+source("../R/write.vcf.R")
+write.vcf(Results)
+str(Results)
+write.vcf(Results)
+snps<-srma.out@srmaSnps#
+    stopifnot(all((c('Chromosome','Position') %in% colnames(snps)))) #
+    if(nrow(snps)==0) break#
+    snps<-snps[!is.na(snps$Chromosome),]#
+    b1<-snps$Chromosome#
+    b2<-snps$Position#
+    b3<-paste(snps$Fragment, snps$FragPos, sep='_')#
+    b4<-toupper(as.character(snps$Ref))#
+    sn<-srma.out@sampleNames#
+    gt.temp<-as.matrix(snps[,sn])#
+    #
+    Ref<-b4#
+    alt<-gt<-NULL
+str(srma.out)
+srma.out = Results
+snps<-srma.out@srmaSnps#
+    stopifnot(all((c('Chromosome','Position') %in% colnames(snps)))) #
+    if(nrow(snps)==0) break#
+    snps<-snps[!is.na(snps$Chromosome),]#
+    b1<-snps$Chromosome#
+    b2<-snps$Position#
+    b3<-paste(snps$Fragment, snps$FragPos, sep='_')#
+    b4<-toupper(as.character(snps$Ref))#
+    sn<-srma.out@sampleNames#
+    gt.temp<-as.matrix(snps[,sn])#
+    #
+    Ref<-b4#
+    alt<-gt<-NULL
+str(gt.temp)
+ for(i in 1:nrow(gt.temp)){#
+      pos.i<-gt.temp[i,]#
+      ref<-Ref[i]#
+      allele1<-ifelse(substr(pos.i,1,1)==ref, 0, 1)#
+      allele1[is.na(allele1)]<-'.'#
+      allele2<-ifelse(substr(pos.i,2,2)==ref, 0, 1)#
+      allele2[is.na(allele2)]<-'.'#
+      gt.i<-paste(allele1, allele2, sep='/')#
+      allele.all<-na.exclude(unique(c(substr(pos.i,1,1),substr(pos.i,2,2) )))#
+      alt.i<-allele.all[allele.all!=ref]#
+      gt<-rbind(gt, gt.i)#
+      alt<-c(alt, alt.i)#
+    }#
+    colnames(gt)<-colnames(gt.temp)#
+    b5<-alt#
+    b6<-b7<-b8<-rep('.', nrow(snps))#
+    b9<-rep('GT', nrow(snps))#
+    mand<-cbind(b1,b2,b3,b4,b5,b6,b7,b8,b9)#
+    colnames(mand)<-c('#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT')#
+    vcfbody<-cbind(mand, gt)
+str(b1)
+str(b2)
+str(b3)
+str(b4)
+str(b5)
+str(b6)
+str(gt.tmp)
+str(gt.temp)
+alt
+str(alt)
+allele.all
+ snps<-srma.out@srmaSnps
+str(snps)
+snps<-snps[!is.na(snps$Chromosome),]#
+    b1<-snps$Chromosome#
+    b2<-snps$Position#
+    b3<-paste(snps$Fragment, snps$FragPos, sep='_')#
+    b4<-toupper(as.character(snps$Ref))#
+    sn<-srma.out@sampleNames#
+    gt.temp<-as.matrix(snps[,sn])
+str(gt.temp)
+str(sn)
+Ref<-b4
+str(bf)
+str(b4)
+alt<-gt<-NULL
+str(gt.temp)
+str(Ref)
+i=1
+pos.i<-gt.temp[i,]#
+      ref<-Ref[i]#
+      allele1<-ifelse(substr(pos.i,1,1)==ref, 0, 1)
+allele1
+pos.i
+gt.temp[i,]
+str(gt.temp)
+gt.temp[i,]
+gt.temp[2,]
+gt.temp[,2]
+srma.out
+str(Results)
+str(reorg.dat)
+getwd()
+load("../../SRMA_old/data/reorg.dat.rda")
+str(reorg.dat)
+r.ref<-reorg.dat$ref.info#
+new.r.ref<-cbind( r.ref, posi[match(r.ref$Fragment, posi[,9]), c(1, 4)])#
+rownames(new.r.ref)<-NULL#
+colnames(new.r.ref)[4:5]<-c('Chromosome','Position')#
+new.r.ref$Position<-new.r.ref$Position+new.r.ref$FragPos#
+reorg.dat$ref.info<-new.r.ref
+str(reorg.dat)
+ref.info=reorg.dat$ref.info
+head(ref.info,3)
+posi<-read.delim(file='5umChipExons_g37_20120326.gff', sep='\t', header=F, stringsAsFactors=F)
+posi<-read.delim(file='../../5umChipExons_g37_20120326.gff', sep='\t', header=F, stringsAsFactors=F)
+new.ref.info<-cbind( ref.info, posi[match(ref.info$Fragment, posi[,9]), c(1, 4)])#
+colnames(new.ref.info)[4:5]<-c('Chromosome','Position')#
+rownames(new.ref.info)<-NULL#
+new.ref.info$Position<-new.ref.info$Position+new.ref.info$FragPos#
+ref.info<-new.ref.info
+head(ref.info)
+str(reorg.dat)
+ref.info=reorg.dat$ref.info
+head(ref.info)
+save(reorg.dat,file="reorg.dat.rda")
+save(ref.info,file="ref.info.rda")
+sd.adj.dat <- single.chip.posterior.prob(reorg.dat)
+str(sd.adj.dat)
+save(sd.adj.dat,file="sd.adj.dat.rda")
+srma.out <- call.genotype(reorg.dat,sd.adj.dat)
+source("../R/post.process.R")
+Results <- post.process(srma.out)
+write.vcf(Results)
+Results
+str(Results)
+write.vcf(Results)
+write.vcf
+as.Date(Sys.time())
+Sys.time()
+str(Sys.time())
+as.Date(Sys.time())
+str(Results)
+write.vcf(Results)
+getwd()
+getwd()
+write.vcf
+str(Results)
+write.vcf(Results)
+snps<-srma.out@srmaSnps#
+    stopifnot(all((c('Chromosome','Position') %in% colnames(snps)))) #
+    if(nrow(snps)==0) break#
+    snps<-snps[!is.na(snps$Chromosome),]#
+    b1<-snps$Chromosome#
+    b2<-snps$Position#
+    b3<-paste(snps$Fragment, snps$FragPos, sep='_')#
+    b4<-toupper(as.character(snps$Ref))#
+    sn<-srma.out@sampleNames#
+    gt.temp<-as.matrix(snps[,sn])#
+    #
+    Ref<-b4#
+    alt<-gt<-NULL
+srma.out=Results
+snps<-srma.out@srmaSnps#
+    stopifnot(all((c('Chromosome','Position') %in% colnames(snps)))) #
+    if(nrow(snps)==0) break#
+    snps<-snps[!is.na(snps$Chromosome),]#
+    b1<-snps$Chromosome#
+    b2<-snps$Position#
+    b3<-paste(snps$Fragment, snps$FragPos, sep='_')#
+    b4<-toupper(as.character(snps$Ref))#
+    sn<-srma.out@sampleNames#
+    gt.temp<-as.matrix(snps[,sn])#
+    #
+    Ref<-b4#
+    alt<-gt<-NULL
+gt.temp
+i=1
+pos.i<-gt.temp[i,]
+pos.i
+ref<-Ref[i]#
+      allele1<-ifelse(substr(pos.i,1,1)==ref, 0, 1)#
+      allele1[is.na(allele1)]<-'.'#
+      allele2<-ifelse(substr(pos.i,2,2)==ref, 0, 1)#
+      allele2[is.na(allele2)]<-'.'#
+      gt.i<-paste(allele1, allele2, sep='/')#
+      allele.all<-na.exclude(unique(c(substr(pos.i,1,1),substr(pos.i,2,2) )))#
+      alt.i<-allele.all[allele.all!=ref]#
+      gt<-rbind(gt, gt.i)#
+      alt<-c(alt, alt.i)
+alt
+alt.i
+allele1
+str(Results)
+q()

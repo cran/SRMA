@@ -64,7 +64,7 @@ post.process<-function(srma.output, dbsnp.info=NULL, sls.cut=0.67, ampmap=NULL){
   temp.ref.m<-matrix(paste(temp.ref, temp.ref, sep=""), nrow=nrow(refCalls), ncol=ncol(srmacalls.m))
   snps.indx <- apply(srmacalls.m!=temp.ref.m, 1, any, na.rm=T) 
   allsnps <- data.frame(refCalls[snps.indx,],srmacalls.m[snps.indx,])
-  colnames(allsnps)[4:ncol(allsnps)] <- sample.names
+  colnames(allsnps)[(ncol(refCalls)+1):ncol(allsnps)] <- sample.names
   exons <- as.character(unique(allsnps[,1]))
   
   cat('Identifying insertion/deletions...\n')
@@ -121,7 +121,7 @@ post.process<-function(srma.output, dbsnp.info=NULL, sls.cut=0.67, ampmap=NULL){
     ref <- paste(ref.allele,ref.allele,sep="")
     score <- slscore[refCalls$Fragment==frag&refCalls$FragPos==fragpos,]
     sc <- median(score[!is.na(score)])
-    call <- as.character(unlist(a[4:length(a)]))
+    call <- as.character(unlist(a[(ncol(refCalls)+1):length(a)]))
     if(sc<=cutoff){
       call[!is.na(call)] <- "X"
     }else{
@@ -139,15 +139,14 @@ post.process<-function(srma.output, dbsnp.info=NULL, sls.cut=0.67, ampmap=NULL){
   
   
   allsnps3 <- allsnps2
-  allsnps3[,4:ncol(allsnps3)] <- tmp.finalcall[,-1]
+  allsnps3[,(ncol(refCalls)+1):ncol(allsnps3)] <- tmp.finalcall[,-1]
   tmp2 <- tmp.finalcall[,1]=="Good" 
   allsnps3 <- allsnps3[tmp2,] 
  
   ##srma.metric<-list(srma.qc=qc.m, srma.calls=srmacalls.m, srma.qs=srmaqs.m, srma.rs=srmars.m, srma.slscore=srmaslscore)
-  if(is.null(indelsnps))indelsnps<-data.frame(matrix(numeric(0), nrow=0, ncol=3+n.sample))
-  if(is.null(allsnps3)) allsnps3<-data.frame(matrix(numeric(0), nrow=0, ncol=3+n.sample))
-  colnames(indelsnps)[1:3]<-colnames(allsnps3)[1:3]<-c( 'Fragment',  'FragPos',  'Ref')   
-
+  if(is.null(indelsnps))indelsnps<-data.frame(matrix(numeric(0), nrow=0, ncol=ncol(refCalls)+n.sample))
+  if(is.null(allsnps3)) allsnps3<-data.frame(matrix(numeric(0), nrow=0, ncol=ncol(refCalls)+n.sample))
+  colnames(indelsnps)[1:ncol(refCalls)]<-colnames(allsnps3)[1:ncol(refCalls)]<-colnames(refCalls)
   srma.metric<-list(srma.qc=qc.m, srma.calls=srmacalls.m, srma.qs=srmaqs.m, srma.slscore=srmaslscore)
   footprint.par<-list(base.n=n.footprint, sample.n=m.footprint)
   final.output<-new('SRMAResults', footprint=footprint.par, srmaMat=srma.metric, srmaIndelsnps=indelsnps, srmaSnps=allsnps3, sampleNames=sample.names, slscoreCutoff=sls.cut)

@@ -1,8 +1,8 @@
 Package: SRMA
 Type: Package
 Title: SRMA Analysis of Array-based Sequencing Data
-Version: 1.0.0-1
-Date: 2012-02-17
+Version: 1.0.0-2
+Date: 2012-04-9
 Author: Wenyi Wang <wwang7@mdanderson.org>, Nianxiang Zhang
         <nzhang@mdanderson.org>, Yan Xu
 Maintainer: Wenyi Wang <wenyiw@mdanderson.org>
@@ -16,6 +16,6 @@ Description: SRMA is an R package for sequence base calling using
         nucleotide variants in candidate gene sequences.
 License: GPL (>= 2)
 LazyLoad: yes
-Packaged: 2012-02-17 22:25:09 UTC; wenyiwang
+Packaged: 2012-04-13 03:23:44 UTC; wenyiwang
 Repository: CRAN
-Date/Publication: 2012-02-18 07:05:03
+Date/Publication: 2012-04-13 03:29:59
